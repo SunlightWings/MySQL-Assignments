@@ -16,8 +16,8 @@ city VARCHAR(69)
 );
 
 
-/*Run employee and company table first before running this works table query,
-because works table has an foreign key that refers to a primary key in the company table*/
+/*Run 'tbl_employee' and 'tbl_company' first before the following 'tbl_works' query,
+because 'tbl_works' has a foreign key that refers to a primary key in the table 'tbl_company'*/
 
 CREATE TABLE tbl_works(
 employee_name VARCHAR(69) PRIMARY KEY,
@@ -54,7 +54,7 @@ SELECT * FROM tbl_employee;
  
 
 
- /*Run employee table, and company table first before running the following query, 
+ /*Run 'tbl_employee', and 'tbl_company' first before running the following query, 
  in order to not violate foreign key constraints*/
  
 INSERT INTO tbl_works(employee_name, company_name, salary)
@@ -86,7 +86,7 @@ VALUES
 SELECT * FROM tbl_manages;
 
 
--- _____________________________________________________________________________________________________________________________
+-- ______________________________________________________________________________________________________________________________________________________________
 
 -- Q.n. 2a (method 1)
 SELECT employee_name FROM tbl_works WHERE company_name = 'First Bank Corporation';
@@ -113,7 +113,7 @@ SELECT * FROM tbl_employee WHERE employee_name IN
  -- Q.N.2C (method 2)
 SELECT * FROM tbl_employee NATURAL JOIN tbl_works WHERE company_name = 'First Bank Corporation' AND salary > 10000;
 
--- ______________________________________________________________________________________________________________
+-- _____________________________________________________________________________________________________________________________________________________________
 
 -- Q.N.2D (method 1)
 SELECT * FROM tbl_employee, tbl_works, tbl_company WHERE 
@@ -124,7 +124,7 @@ tbl_employee.city = tbl_company.city;
 -- Q.N.2D  (method 2) 
 SELECT * FROM tbl_employee INNER JOIN tbl_company ON tbl_employee.city = tbl_company.city; 
 
--- ___________________________________________________________________________________________________________________________
+-- __________________________________________________________________________________________________________________________________________________________
 
 -- Q.N. 2E (method 1) 
   SELECT E1.employee_name, M.manager_name
@@ -141,7 +141,7 @@ WHERE
 JOIN tbl_employee ON t.manager_name = tbl_employee.employee_name WHERE t.city = tbl_employee.city AND t.street = tbl_employee.street;
  
 
- -- ________________________________________________________________________________________________________________________________________
+ -- ___________________________________________________________________________________________________________________________________________________________
  
  
 -- Q.N.2.F (method 1)
@@ -151,7 +151,7 @@ JOIN tbl_employee ON t.manager_name = tbl_employee.employee_name WHERE t.city = 
 SELECT employee_name FROM tbl_employee NATURAL JOIN tbl_works WHERE company_name != 'First Bank Corporation';
 
 
--- ______________________________________________________________________________________________________________________________
+-- ___________________________________________________________________________________________________________________________________________________________
 
 -- Q.N.2G (method 1) 
 SELECT @maxsal := MAX(salary) FROM Tbl_works WHERE company_name = 'Small Bank Corporation';   /* First find max salary from small bank */
@@ -162,7 +162,7 @@ SELECT employee_name FROM Tbl_works MAX salary > @maxsal;                       
 SELECT employee_name FROM tbl_works WHERE salary >
 (SELECT MAX(salary) FROM tbl_works NATURAL JOIN tbl_company  WHERE company_name = 'Small Bank Corporation');
 
--- __________________________________________________________________________________________________________________________________________
+-- _____________________________________________________________________________________________________________________________________________________________
 
 -- Q.N. 2H (method 1) 
 SELECT company_name FROM tbl_company WHERE city =                                                 /*First find out cities where small bank is located, then find out other companies in those cities */
@@ -173,7 +173,7 @@ SELECT t2.company_name FROM tbl_company t1 JOIN tbl_company t2 ON t1.city = t2.c
 WHERE t1.company_name = 'Small Bank Corporation' ;
 
 
--- ___________________________________________________________________________________________________________________________
+-- ________________________________________________________________________________________________________________________________________________________________
 -- Q.N.2i (method 1) 
 SELECT employee_name FROM tbl_works WHERE salary >
        (SELECT AVG(salary) FROM tbl_works);
@@ -181,18 +181,18 @@ SELECT employee_name FROM tbl_works WHERE salary >
 -- Q.N.2i (method 2) 
 SELECT employee_name FROM tbl_employee NATURAL JOIN tbl_works WHERE salary > (SELECT AVG(salary) FROM tbl_works); 
 
--- _________________________________________________________________________________________________________________________________
+-- _________________________________________________________________________________________________________________________________________________________________
 
 -- Q.n 2j  
 SELECT Tbl_Works.company_name, COUNT(*) AS num_employees FROM Tbl_Works      /*note that 'AS' is used as an alias to make the code readable*/
 GROUP BY Tbl_Works.company_name ORDER BY num_employees DESC LIMIT 1;         /*'limit' limits the no of rows*/
 
--- _____________________________________________________________________________________________________________________________________________________
+-- ______________________________________________________________________________________________________________________________________________________________
 
 -- Q.N.2K  
 SELECT company_name FROM tbl_works WHERE salary = (SELECT MIN(salary) FROM tbl_works);
 
--- ____________________________________________________________________________________________________________________________________________________
+-- _______________________________________________________________________________________________________________________________________________________________
 
 -- Q.n. 2l  
 SELECT company_name FROM tbl_works  
@@ -207,7 +207,7 @@ SELECT company_name FROM tbl_works
  UPDATE tbl_employee SET city = ' Newtown' WHERE employee_name = 'Jones Hetfield';
  SELECT * FROM tbl_employee;
  
- -- _______________________________________________________________________________________________________________________________
+ -- ______________________________________________________________________________________________________________________________________________________________
  
  -- Q.n.3b 
  SELECT * FROM tbl_works;
@@ -215,7 +215,7 @@ SELECT company_name FROM tbl_works
  SELECT * FROM tbl_works;
  
  
- -- ___________________________________________________________________________________________________________________________
+ -- ___________________________________________________________________________________________________________________________________________________________
  
  -- Q.N.3c
  SELECT * FROM tbl_works;
@@ -224,7 +224,7 @@ SELECT company_name FROM tbl_works
  SELECT * FROM tbl_works;   
  
  
- -- _________________________________________________________________________________________________________________________________________
+ -- _______________________________________________________________________________________________________________________________________________________________
  
  -- Q.N.3D 
  SELECT * FROM tbl_works;
@@ -244,7 +244,7 @@ UPDATE Tbl_Works SET salary = IF( salary < 100000, salary * 1.1 , salary*1.03) W
  which is the name of the company being 'First Bank Corporation' */
  /*To view the original table for the First Bank Corporation jump to INSERTION part into the table */
  
- -- _______________________________________________________________________________________________________________________________________
+ -- _______________________________________________________________________________________________________________________________________________________________
  
  
           /*  [THE END] */
